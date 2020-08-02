@@ -17,17 +17,19 @@ else
   Plug 'roxma/nvim-yarp'
   Plug 'roxma/vim-hug-neovim-rpc'
 endif
+Plug 'Vimjas/vim-python-pep8-indent'
 " Doc utility
 Plug 'davidhalter/jedi-vim'
 Plug 'deoplete-plugins/deoplete-jedi'
 call plug#end()
+
+autocmd BufWritePre *.py 0,$!yapf
 
 let g:jedi#auto_vim_configuration = 0
 let g:jedi#goto_assignments_command = ''  " dynamically done for ft=python.
 let g:jedi#goto_definitions_command = ''  " dynamically done for ft=python.
 let g:jedi#use_tabs_not_buffers = 0  " current default is 1.
 let g:jedi#completions_enabled = 0
-let g:jedi#smart_auto_mappings = 1
 
 " Unite/ref and pydoc are more useful.
 let g:jedi#auto_close_doc = 1
