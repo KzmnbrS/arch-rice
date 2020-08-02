@@ -82,6 +82,9 @@ set wildignore+=*/tmp/*,*.so,*.swp,*.zip,__pycache__,*.pyc,requirements.txt,LICE
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn|.ycm_confirm_extra_conf.py)$'
 
 "MARK: Editor
+set mouse=a
+set mousehide "When typing
+
 syntax on
 filetype plugin on
 colorscheme jellybeans
