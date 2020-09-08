@@ -27,7 +27,7 @@ font "pango:FantasqueSansMono Nerd Font 14"
 exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 
 exec --no-startup-id compton --config ~/.config/compton.conf -b
-exec --no-startup-id hsetroot -fill ~/wallpapers/1.jpg
+exec --no-startup-id hsetroot -fill ~/.config/wallpapers/2.jpg
 exec --no-startup-id dunst
 
 for_window [class="^.*"] border pixel 2
