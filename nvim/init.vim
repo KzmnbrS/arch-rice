@@ -26,6 +26,7 @@ endif
 
 "Look and feel
 Plug 'flazz/vim-colorschemes'
+Plug 'rafi/awesome-vim-colorschemes'
 Plug 'nathanaelkane/vim-indent-guides'
 
 "Editor
@@ -68,6 +69,12 @@ nnoremap <leader>j :<C-u>DeniteCursorWord grep:.<CR>
 
 let g:AutoPairsShortcutBackInsert = '<M-b>'
 
+let g:coc_global_extensions = [
+    \ 'coc-emoji', 'coc-eslint', 'coc-prettier',
+    \ 'coc-tsserver', 'coc-tslint', 'coc-tslint-plugin',
+    \ 'coc-css', 'coc-json', 'coc-yaml'
+\ ]
+
 "+=============================================================================
 " Tab completion
 function! s:check_back_space() abort
@@ -95,6 +102,8 @@ set mousehide " When typing
 
 syntax on
 filetype plugin on
+
+set background=dark
 colorscheme jellybeans
 
 set relativenumber
@@ -117,8 +126,8 @@ set expandtab
 set nobackup
 set noswapfile
 
-let g:python_host_prog = 'python'
-let g:python3_host_prog = 'python3'
+let g:python_host_prog = '/usr/bin/python'
+let g:python3_host_prog = '/usr/bin/python3'
 
 "MARK: Ignore
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,__pycache__,*.pyc,requirements.txt,LICENSE
