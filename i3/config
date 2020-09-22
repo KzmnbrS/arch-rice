@@ -48,6 +48,9 @@ bindsym $mod+c exec --no-startup-id chromium --password-store=gnome
 # kill focused window
 bindsym Mod1+q kill
 
+# screenshot
+bindsym Print exec scrot '%Y-%m-%d-%s_screenshot_$wx$h.jpg' -e 'mv $f ~/screenshots/'
+
 # start dmenu (a program launcher)
 bindsym $mod+d exec --no-startup-id dmenu_run -fn "FantasqueSansMono Nerd Font:size=12"
 # There also is the (new) i3-dmenu-desktop which only displays applications
