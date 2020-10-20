@@ -23,6 +23,7 @@ Plug 'nathanaelkane/vim-indent-guides'
 
 "Editor
 Plug 'jiangmiao/auto-pairs'
+Plug 'mattn/emmet-vim'
 Plug 'joom/vim-commentary' "gcc {count} || gc (visual)
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'Vimjas/vim-python-pep8-indent'
@@ -124,6 +125,8 @@ cmap kk <C-^>
 let g:AutoPairsShortcutBackInsert = '<M-b>'
 "Fast saving
 nmap <leader>w :w!<cr>
+
+let g:user_emmet_leader_key = ','
 
 "Tab completion
 inoremap <silent><expr> <Tab>
