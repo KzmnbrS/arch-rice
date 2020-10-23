@@ -16,13 +16,18 @@ Plug 'vim-airline/vim-airline'
 "Navigation
 Plug 'easymotion/vim-easymotion'
 Plug 'scrooloose/nerdtree'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 
 "Look and feel
 Plug 'rafi/awesome-vim-colorschemes'
 Plug 'nathanaelkane/vim-indent-guides'
 
 "Editor
+Plug 'sheerun/vim-polyglot'
+Plug 'airblade/vim-rooter'
 Plug 'jiangmiao/auto-pairs'
+Plug 'tpope/vim-surround'
 Plug 'mattn/emmet-vim'
 Plug 'joom/vim-commentary' "gcc {count} || gc (visual)
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -82,6 +87,8 @@ set undofile
 
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,__pycache__,*.pyc,requirements.txt,LICENSE
 
+let g:rooter_patterns = ['.git', 'LICENSE']
+
 "SECTION: Locale
 set keymap=russian-jcukenwin
 set spell spelllang=ru_yo,en_us
@@ -126,7 +133,10 @@ let g:AutoPairsShortcutBackInsert = '<M-b>'
 "Fast saving
 nmap <leader>w :w!<cr>
 
-let g:user_emmet_leader_key = ','
+imap ;; <Esc>:Files<cr>
+nmap ; :Files<cr>
+
+let g:user_emmet_leader_key = '/'
 
 "Tab completion
 inoremap <silent><expr> <Tab>
