@@ -11,7 +11,7 @@ Plug 'dense-analysis/ale'
 
 "Interface
 Plug 'airblade/vim-gitgutter'
-Plug 'vim-airline/vim-airline'
+Plug 'itchyny/lightline.vim'
 
 "Navigation
 Plug 'easymotion/vim-easymotion'
@@ -20,10 +20,15 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
 "Look and feel
+Plug 'pgavlin/pulumi.vim'
 Plug 'rafi/awesome-vim-colorschemes'
 Plug 'nathanaelkane/vim-indent-guides'
 
 "Editor
+Plug 'editorconfig/editorconfig-vim'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'tpope/vim-eunuch'
+Plug 'kshenoy/vim-signature'
 Plug 'sheerun/vim-polyglot'
 Plug 'airblade/vim-rooter'
 Plug 'jiangmiao/auto-pairs'
@@ -46,6 +51,8 @@ set novisualbell
 set t_vb=
 set tm=500
 
+set t_Co=256
+
 set tabstop=4 softtabstop=4
 set shiftwidth=4
 set expandtab
@@ -56,7 +63,7 @@ set relativenumber
 set ruler
 set colorcolumn=80
 
-colorscheme jellybeans
+colorscheme pulumi
 set background=dark
 
 set showmatch " Braces
@@ -118,9 +125,6 @@ let g:coc_global_extensions = [
 \ ]
 
 let g:ale_fix_on_save = 1
-
-"Add missing imports on save
-autocmd BufWritePre *.go :call CocAction('organizeImport')
 
 "SECTION: Bindings
 let mapleader = " "
