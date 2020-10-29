@@ -4,14 +4,12 @@ call plug#begin()
 Plug 'tpope/vim-fugitive'
 
 "Lint
-Plug 'prettier/vim-prettier', {
-  \ 'do': 'npm install -g prettier',
-  \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'yaml', 'html'] }
 Plug 'dense-analysis/ale'
 
 "Interface
 Plug 'airblade/vim-gitgutter'
 Plug 'itchyny/lightline.vim'
+Plug 'jodosha/vim-godebug'
 
 "Navigation
 Plug 'easymotion/vim-easymotion'
@@ -21,24 +19,18 @@ Plug 'junegunn/fzf.vim'
 
 "Look and feel
 Plug 'pgavlin/pulumi.vim'
-Plug 'rafi/awesome-vim-colorschemes'
 Plug 'nathanaelkane/vim-indent-guides'
 
 "Editor
-Plug 'editorconfig/editorconfig-vim'
-Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-eunuch'
 Plug 'kshenoy/vim-signature'
 Plug 'sheerun/vim-polyglot'
 Plug 'airblade/vim-rooter'
 Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-surround'
-Plug 'mattn/emmet-vim'
 Plug 'joom/vim-commentary' "gcc {count} || gc (visual)
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'Vimjas/vim-python-pep8-indent'
-"Improved JavaScript syntax highlight
-Plug 'othree/yajs.vim'
 call plug#end()
 
 "SECTION: General
@@ -53,7 +45,7 @@ set tm=500
 
 set t_Co=256
 
-set tabstop=4 softtabstop=4
+set tabstop=2 softtabstop=4
 set shiftwidth=4
 set expandtab
 
@@ -103,23 +95,16 @@ set spell spelllang=ru_yo,en_us
 "SECTION: Lint and complete
 let g:ale_linters = {
 \   'python': ['flake8'],
-\   'javascript': ['prettier', 'eslint'],
 \   'go': ['golint', 'go vet']
 \}
 
 let g:ale_fixers = {
-  \    'javascript': ['prettier', 'eslint'],
-  \    'scss': ['prettier'],
-  \    'html': ['prettier'],
-  \
   \    'python': ['yapf'],
   \    'go': ['gofmt', 'goimports']
 \}
 
 let g:coc_global_extensions = [
-    \ 'coc-emoji', 'coc-eslint', 'coc-prettier',
-    \ 'coc-tsserver',
-    \ 'coc-css', 'coc-json', 'coc-yaml',
+    \ 'coc-emoji',
     \ 'coc-python',
     \ 'coc-go', 
 \ ]
@@ -139,8 +124,6 @@ nmap <leader>w :w!<cr>
 
 imap ;; <Esc>:Files<cr>
 nmap ; :Files<cr>
-
-let g:user_emmet_leader_key = '/'
 
 "Tab completion
 inoremap <silent><expr> <Tab>
