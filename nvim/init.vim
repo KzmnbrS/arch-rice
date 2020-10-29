@@ -9,7 +9,7 @@ Plug 'dense-analysis/ale'
 "Interface
 Plug 'airblade/vim-gitgutter'
 Plug 'itchyny/lightline.vim'
-Plug 'jodosha/vim-godebug'
+Plug 'sebdah/vim-delve'
 
 "Navigation
 Plug 'easymotion/vim-easymotion'
