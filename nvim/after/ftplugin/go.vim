@@ -1,10 +1,10 @@
-nmap <silent> <leader>a :GoInfo<CR>
+nmap <silent> <leader>i :GoInfo<CR>
 nmap <silent> <leader>d :GoDef<CR>
 nmap <silent> <leader>r :GoRename<CR>
 
 inoremap kf <Esc>:GoKeyify<CR>
-inoremap kg <Esc>:GoIfErr<CR>
-inoremap kn <Esc>:GoImpl<CR>
+inoremap kl <Esc>:GoIfErr<CR>
+inoremap ki <Esc>:GoImpl<CR>
 nmap zs :DlvToggleBreakpoint<CR>
 nmap zd :DlvDebug
 nmap zc :DlvClearAll<CR>

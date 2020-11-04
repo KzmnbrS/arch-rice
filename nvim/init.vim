@@ -25,11 +25,13 @@ Plug 'Yggdroot/indentLine'
 Plug 'ryanoasis/vim-devicons'
 Plug 'liuchengxu/vim-which-key'
 Plug 'chriskempson/base16-vim'
-Plug 'mhinz/vim-startify'
 Plug 'preservim/tagbar'
 Plug 'simnalamburt/vim-mundo'
 Plug 'pgavlin/pulumi.vim'
 Plug 'vimwiki/vimwiki'
+Plug 'romainl/vim-cool'
+Plug 'kshenoy/vim-signature'
+Plug 'mhinz/vim-startify/'
 
 "Navigation
 Plug 'easymotion/vim-easymotion'
@@ -129,7 +131,6 @@ let g:NERDTreeGitStatusIndicatorMapCustom = {
                 \ 'Unknown'   :'?',
                 \ }
 
-let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 
 "Locale
 set keymap=russian-jcukenwin
@@ -166,35 +167,79 @@ let g:coc_global_extensions = [
 let g:ale_fix_on_save = 1
 
 "Mappings
+"Motion
+""General
+"j, k, h, l - std
+
+""Between windows
+nmap <C-w> :wincmd h<CR>
+nmap <C-e> :wincmd l<CR> 
+imap <C-w> <Esc><C-w>
+imap <C-e> <Esc><C-e>
+
+""Overline
+"0, $ - std
+let g:qs_highlight_on_keys = ['f', 'F']
+"`;` / ',' - repeat last search forward / backward
+
+""Overwin
+"H, M, L, %, g; (last edit jump) - std
+"C-d, C-u, /, *, n, N - std
+nmap t <Plug>(easymotion-overwin-f2)
+nmap T <Plug>(easymotion-overwin-line)
+
+""Overfile
+"G, gg, <lineno>g - std
+"m<markname>, '<markname>, m<space> (delete all) - std
+nmap <S-j> 5j
+nmap <S-k> 5k
+nmap <C-f> :TagbarToggle<CR>
+
+""Project scope
+nmap <C-n> :NERDTreeToggle<CR>
+imap <C-n> <Esc>:NERDTreeToggle<CR>
+
+nmap sf :GFiles<CR>
+nmap SF :Buffers<CR>
+nmap SG :GGrep<CR>
+cmap sf :GFiles<CR>
+cmap SF :Buffers<CR>
+cmap SG :GGrep<CR>
+
+"Misc
 let mapleader = " "
 imap jj <Esc>
 "System layout must be EN all the time
 imap kk <C-^>
 "Search fields etc.
 cmap kk <C-^>
-
-nnoremap <silent> H :wincmd h<cr>
-nnoremap <silent> L :wincmd l<cr>
-
-imap ;; <Esc>:GFiles<cr>
-imap ;f <Esc>:Rg<cr>
-nmap ; :GFiles<cr>
+let g:AutoPairsShortcutBackInsert = 'kj'
 
 nmap <leader>w :w!<cr>
 
-let g:AutoPairsShortcutBackInsert = '<M-z>'
+let g:move_key_modifier = 'C'
 
-let g:move_key_modifier = 'С'
+"Close Vim if nothing but NERDTree left
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
-" Use <C-L> to clear the highlighting of :set hlsearch.
-if maparg('<C-l>', 'n') ==# ''
-  nnoremap <silent> <C-l> :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><C-l>
-endif
+"FZF bat preview
+command! -bang -nargs=? -complete=dir Files
+    \ call fzf#vim#files(<q-args>, {'options': ['--layout=reverse', '--info=inline', '--preview', '~/.vim/plugged/fzf.vim/bin/preview.sh {}']}, <bang>0)
 
-let g:user_emmet_leader_key = ','
+"FZF git grep
+command! -bang -nargs=* GGrep
+  \ call fzf#vim#grep(
+  \   'git grep --line-number -- '.shellescape(<q-args>), 0,
+  \   fzf#vim#with_preview({'dir': systemlist('git rev-parse --show-toplevel')[0]}), <bang>0)
 
-nmap <Leader>f <Plug>(easymotion-overwin-f2)
 
-map <C-n> :NERDTreeToggle<CR>
+"Startify
+function! s:gitModified()
+    let files = systemlist('git ls-files -m 2>/dev/null')
+    return map(files, "{'line': v:val, 'path': v:val}")
+endfunction
 
-nmap <C-f> :TagbarToggle<CR>
+let g:startify_lists = [
+        \ { 'type': 'dir',       'header': ['   MRU '. getcwd()] },
+        \ { 'type': function('s:gitModified'),  'header': ['   git modified']},
+        \ ]
