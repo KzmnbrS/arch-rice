@@ -5,9 +5,9 @@ nmap <silent> <leader>r :GoRename<CR>
 inoremap kf <Esc>:GoKeyify<CR>
 inoremap kg <Esc>:GoIfErr<CR>
 inoremap kn <Esc>:GoImpl<CR>
-nmap ks :DlvToggleBreakpoint<CR>
-nmap kd :DlvDebug
-nmap kc :DlvClearAll
+nmap zs :DlvToggleBreakpoint<CR>
+nmap zd :DlvDebug
+nmap zc :DlvClearAll<CR>
 
 set formatoptions+=cr
 
@@ -23,7 +23,6 @@ autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=2
 let g:go_metalinter_enabled = ['vet', 'golint', 'errcheck']
 let g:go_metalinter_autosave_enabled = ['vet']
 let g:go_metalinter_deadline = "5s"
-let g:go_metalinter_autosave = 1
 
 " For :GoBuild
 set autowrite
