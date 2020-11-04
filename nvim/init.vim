@@ -173,8 +173,12 @@ let g:ale_fix_on_save = 1
 ""Between windows
 nmap <C-w> :wincmd h<CR>
 nmap <C-e> :wincmd l<CR> 
+nmap <S-w> :wincmd j<CR>
+nmap <S-e> :wincmd k<CR>
 imap <C-w> <Esc><C-w>
 imap <C-e> <Esc><C-e>
+imap <S-w> <Esc><S-w>
+imap <S-e> <Esc><S-e>
 
 ""Overline
 "0, $ - std

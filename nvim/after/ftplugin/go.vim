@@ -1,8 +1,8 @@
-nmap <silent> <leader>i :GoInfo<CR>
+nmap <silent> <leader>R :GoReferrers<CR>
 nmap <silent> <leader>d :GoDef<CR>
 nmap <silent> <leader>r :GoRename<CR>
 
-inoremap kf <Esc>:GoKeyify<CR>
+inoremap kf <Esc>:GoFillStruct<CR>
 inoremap kl <Esc>:GoIfErr<CR>
 inoremap km <Esc>:GoImpl<CR>
 
