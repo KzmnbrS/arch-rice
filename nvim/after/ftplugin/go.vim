@@ -4,12 +4,14 @@ nmap <silent> <leader>r :GoRename<CR>
 
 inoremap kf <Esc>:GoKeyify<CR>
 inoremap kl <Esc>:GoIfErr<CR>
-inoremap ki <Esc>:GoImpl<CR>
+inoremap km <Esc>:GoImpl<CR>
+
 nmap zs :DlvToggleBreakpoint<CR>
 nmap zd :DlvDebug
 nmap zc :DlvClearAll<CR>
 
 set formatoptions+=cr
+set colorcolumn=90
 
 let g:deoplete#enable_at_startup = 1
 call deoplete#custom#option('omni_patterns', { 'go': '[^. *\t]\.\w*' })

@@ -24,7 +24,6 @@ Plug 'rafi/awesome-vim-colorschemes'
 Plug 'Yggdroot/indentLine'
 Plug 'ryanoasis/vim-devicons'
 Plug 'liuchengxu/vim-which-key'
-Plug 'chriskempson/base16-vim'
 Plug 'preservim/tagbar'
 Plug 'simnalamburt/vim-mundo'
 Plug 'pgavlin/pulumi.vim'
@@ -202,9 +201,6 @@ imap <C-n> <Esc>:NERDTreeToggle<CR>
 nmap sf :GFiles<CR>
 nmap SF :Buffers<CR>
 nmap SG :GGrep<CR>
-cmap sf :GFiles<CR>
-cmap SF :Buffers<CR>
-cmap SG :GGrep<CR>
 
 "Misc
 let mapleader = " "
@@ -218,6 +214,8 @@ let g:AutoPairsShortcutBackInsert = 'kj'
 nmap <leader>w :w!<cr>
 
 let g:move_key_modifier = 'C'
+
+hi Search cterm=NONE ctermfg=black ctermbg=yellow
 
 "Close Vim if nothing but NERDTree left
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
@@ -243,3 +241,6 @@ let g:startify_lists = [
         \ { 'type': 'dir',       'header': ['   MRU '. getcwd()] },
         \ { 'type': function('s:gitModified'),  'header': ['   git modified']},
         \ ]
+
+let g:vimwiki_list = [{'path': '~/vimwiki/',
+                      \ 'syntax': 'markdown', 'ext': '.md'}]
