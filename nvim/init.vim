@@ -1,39 +1,67 @@
-"SECTION: Plug-in
 call plug#begin()
 "Version control
 Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
 
-"Lint
+"General purpose lint
 Plug 'dense-analysis/ale'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'kamykn/spelunker.vim'
+Plug 'prettier/vim-prettier', {
+  \ 'do': 'npm install -g prettier',
+  \ 'for': ['javascript', 'typescript',
+  \         'css', 'less', 'scss',
+  \         'json', 'graphql',
+  \         'markdown', 'yaml', 'html'
+  \ ]
+\ }
 
 "Interface
-Plug 'airblade/vim-gitgutter'
-Plug 'itchyny/lightline.vim'
-Plug 'sebdah/vim-delve'
+Plug 'vim-airline/vim-airline'
+Plug 'scrooloose/nerdtree'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'rafi/awesome-vim-colorschemes'
+Plug 'Yggdroot/indentLine'
+Plug 'ryanoasis/vim-devicons'
+Plug 'liuchengxu/vim-which-key'
+Plug 'chriskempson/base16-vim'
+Plug 'mhinz/vim-startify'
+Plug 'preservim/tagbar'
+Plug 'simnalamburt/vim-mundo'
+Plug 'pgavlin/pulumi.vim'
+Plug 'vimwiki/vimwiki'
 
 "Navigation
 Plug 'easymotion/vim-easymotion'
-Plug 'scrooloose/nerdtree'
+Plug 'unblevable/quick-scope'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
-"Look and feel
-Plug 'pgavlin/pulumi.vim'
-Plug 'nathanaelkane/vim-indent-guides'
-
 "Editor
+Plug 'sebdah/vim-delve'
 Plug 'tpope/vim-eunuch'
-Plug 'kshenoy/vim-signature'
+Plug 'metakirby5/codi.vim'
 Plug 'sheerun/vim-polyglot'
+Plug 'matze/vim-move'
 Plug 'airblade/vim-rooter'
 Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-surround'
-Plug 'joom/vim-commentary' "gcc {count} || gc (visual)
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'mattn/emmet-vim'
+Plug 'joom/vim-commentary' 
+Plug 'ervandew/supertab'
 Plug 'Vimjas/vim-python-pep8-indent'
+
+"Go
+":GoImpl is fucking neat
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+"Goes well with gopls completions in vim-go
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+"gS - split, gJ - join
+Plug 'AndrewRadev/splitjoin.vim'
+"https://github.com/fatih/vim-go/blob/master/gosnippets/UltiSnips/go.snippets
+Plug 'SirVer/ultisnips'
 call plug#end()
 
-"SECTION: General
 syntax on
 filetype plugin on
 filetype indent on
@@ -43,20 +71,20 @@ set novisualbell
 set t_vb=
 set tm=500
 
-set t_Co=256
-
-set tabstop=2 softtabstop=4
+set tabstop=4 softtabstop=4
 set shiftwidth=4
 set expandtab
 
 set number
 set relativenumber
 
+set nocompatible
+
 set ruler
 set colorcolumn=80
 
-colorscheme pulumi
 set background=dark
+colorscheme pulumi
 
 set showmatch " Braces
 
@@ -66,17 +94,17 @@ set mousehide " When typing
 set smartcase
 set incsearch
 
-set noswapfile
-set nobackup
+set updatetime=100
 
 let g:python_host_prog = '/usr/bin/python'
 let g:python3_host_prog = '/usr/bin/python3'
 
-let g:indent_guides_enable_on_vim_startup = 1
+let g:SuperTabDefaultCompletionType = "<c-n>"
 
-let g:AutoPairsFlyMode = 1
+"Files
+set noswapfile
+set nobackup
 
-"SECTION: Files
 set autoread
 au FocusGained,BufEnter * checktime
 
@@ -86,74 +114,87 @@ set undofile
 
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,__pycache__,*.pyc,requirements.txt,LICENSE
 
-let g:rooter_patterns = ['.git', 'LICENSE']
+let g:rooter_patterns = ['.git',  'LICENSE']
 
-"SECTION: Locale
+let g:NERDTreeGitStatusIndicatorMapCustom = {
+                \ 'Modified'  :'~',
+                \ 'Staged'    :'+',
+                \ 'Untracked' :'&',
+                \ 'Renamed'   :'➜',
+                \ 'Unmerged'  :'═',
+                \ 'Deleted'   :'x',
+                \ 'Dirty'     :'D',
+                \ 'Ignored'   :'',
+                \ 'Clean'     :'^',
+                \ 'Unknown'   :'?',
+                \ }
+
+let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
+
+"Locale
 set keymap=russian-jcukenwin
-set spell spelllang=ru_yo,en_us
+set spelllang=en_us,ru_yo
+set viewoptions=folds,cursor
+autocmd BufWinLeave *.* mkview
+autocmd BufWinEnter *.* silent! loadview
+autocmd BufRead *.* silent setlocal iminsert=0
 
-"SECTION: Lint and complete
+"Lint and complete
+let g:AutoPairsFlyMode = 1
+
 let g:ale_linters = {
 \   'python': ['flake8'],
-\   'go': ['golint', 'go vet']
+\   'javascript': ['prettier', 'eslint'],
+\   'Dockerfile': ['hadolint'],
 \}
 
 let g:ale_fixers = {
+  \    'javascript': ['prettier', 'eslint'],
+  \    'scss': ['prettier'],
+  \    'html': ['prettier'],
+  \
   \    'python': ['yapf'],
-  \    'go': ['gofmt', 'goimports']
 \}
 
 let g:coc_global_extensions = [
-    \ 'coc-emoji',
+    \ 'coc-emoji', 'coc-eslint', 'coc-prettier',
+    \ 'coc-tsserver',
+    \ 'coc-css', 'coc-json', 'coc-yaml',
     \ 'coc-python',
-    \ 'coc-go', 
 \ ]
 
 let g:ale_fix_on_save = 1
 
-"SECTION: Bindings
+"Mappings
 let mapleader = " "
 imap jj <Esc>
 "System layout must be EN all the time
 imap kk <C-^>
 "Search fields etc.
 cmap kk <C-^>
-let g:AutoPairsShortcutBackInsert = '<M-b>'
-"Fast saving
+
+nnoremap <silent> H :wincmd h<cr>
+nnoremap <silent> L :wincmd l<cr>
+
+imap ;; <Esc>:GFiles<cr>
+imap ;f <Esc>:Rg<cr>
+nmap ; :GFiles<cr>
+
 nmap <leader>w :w!<cr>
 
-imap ;; <Esc>:Files<cr>
-nmap ; :Files<cr>
+let g:AutoPairsShortcutBackInsert = '<M-z>'
 
-"Tab completion
-inoremap <silent><expr> <Tab>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<Tab>" :
-      \ coc#refresh()
+let g:move_key_modifier = 'С'
 
-"<CR> to confirm completion
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+" Use <C-L> to clear the highlighting of :set hlsearch.
+if maparg('<C-l>', 'n') ==# ''
+  nnoremap <silent> <C-l> :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><C-l>
+endif
 
-nmap f <Plug>(easymotion-overwin-f2)
-nmap <S-f> <Plug>(easymotion-overwin-line)
+let g:user_emmet_leader_key = ','
+
+nmap <Leader>f <Plug>(easymotion-overwin-f2)
 
 map <C-n> :NERDTreeToggle<CR>
 
-nnoremap <silent> <leader>x :call <SID>show_documentation()<CR>
-nmap <silent> <leader>f <Plug>(coc-definition)
-nmap <silent> <leader>r <Plug>(coc-rename)
-
-"SECTION: Support
-
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~ '\s'
-endfunction
-
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunction
+nmap <C-f> :TagbarToggle<CR>
