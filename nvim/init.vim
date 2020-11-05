@@ -177,8 +177,6 @@ nmap <S-w> :wincmd j<CR>
 nmap <S-e> :wincmd k<CR>
 imap <C-w> <Esc><C-w>
 imap <C-e> <Esc><C-e>
-imap <S-w> <Esc><S-w>
-imap <S-e> <Esc><S-e>
 
 ""Overline
 "0, $ - std

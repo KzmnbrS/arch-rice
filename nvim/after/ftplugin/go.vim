@@ -7,7 +7,6 @@ inoremap kl <Esc>:GoIfErr<CR>
 inoremap km <Esc>:GoImpl<CR>
 
 nmap zs :DlvToggleBreakpoint<CR>
-nmap zd :DlvDebug
 nmap zc :DlvClearAll<CR>
 
 set formatoptions+=cr
@@ -26,7 +25,10 @@ let g:go_metalinter_enabled = ['vet', 'golint', 'errcheck']
 let g:go_metalinter_autosave_enabled = ['vet']
 let g:go_metalinter_deadline = "5s"
 
-" For :GoBuild
+"For :GoBuild
 set autowrite
-" On save
+"On save
 let g:go_fmt_command = "goimports"
+
+"ARRound
+command ARRDebug :DlvConnect :8088
